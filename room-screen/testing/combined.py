@@ -4,7 +4,11 @@
 from time import *
 from socket import *
 
+<<<<<<< HEAD
 host = "192.168.178.31" # set to IP address of target computer
+=======
+host = "192.168.178.34" # set to IP address of target computer
+>>>>>>> 5b217bd103043ed700660475366e84f74bb9b728
 rechost = ""
 port = 13000
 recport = 13001
@@ -57,9 +61,9 @@ while True:
             i = 0
 
         if n == 1 and namegame == 'yes':
-            print(name + data[2:-1])
+            print(name + data[6:-1])
         elif n == 0 and namegame != 'yes':
-            print("Anonymous: " + data[2:-1])
+            print("Anonymous: " + data[6:-1])
 
 
     if x == 0:
