@@ -4,7 +4,7 @@
 from time import *
 from socket import *
 
-host = "192.168.0.107" # set to IP address of target computer
+host = "192.168.178.31" # set to IP address of target computer
 rechost = ""
 port = 13000
 recport = 13001
