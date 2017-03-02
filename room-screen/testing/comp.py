@@ -16,7 +16,11 @@ def receive():
     buf = 1024
     addr = (host, port)
     UDPSock = socket(AF_INET, SOCK_DGRAM)
+    UDPSock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
+    UDPSock.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
     UDPSock.bind(addr)
+
+
     print("Chatroom is open.")
     userlist = {}
     name = 'Anonymous'
@@ -63,11 +67,11 @@ def receive():
 
 name = input("what's your name? ")
 
-
-host = "192.168.178.34" # set to IP address of target computer
+dest = ('<broadcast>')
 port = 13000
-addr = (host, port)
-UDPSock = socket(AF_INET, SOCK_DGRAM)
+addr = (dest, port)
+BSock = socket(AF_INET, SOCK_DGRAM)
+BSock.setsockopt(SOL_SOCKET,SO_BROADCAST, 1)
 
 #UDPSock.sendto(bytes(name, "utf-8"), addr)
 #---creates id---#
@@ -76,7 +80,7 @@ userid = ''.join(random.sample(s,4))
 leavemsg = userid + "Error 404"
 
 name = userid + "name: " + name
-UDPSock.sendto(bytes(name, "utf-8"), addr)
+BSock.sendto(bytes(name, "utf-8"), addr)
 def sending():
 
     while True:
@@ -85,11 +89,11 @@ def sending():
 
             data = userid + data
 
-            UDPSock.sendto(bytes(data, "utf-8"), addr)
+            BSock.sendto(bytes(data, "utf-8"), addr)
         except KeyboardInterrupt:
-            UDPSock.sendto(bytes(leavemsg, "utf-8"), addr)
+            BSock.sendto(bytes(leavemsg, "utf-8"), addr)
             break
-    UDPSock.close()
+    BSock.close()
     os._exit(0)
 
 
