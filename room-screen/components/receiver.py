@@ -8,50 +8,44 @@ buf = 1024
 addr = (host, port)
 UDPSock = socket(AF_INET, SOCK_DGRAM)
 UDPSock.bind(addr)
-print("Waiting to receive messages...")
-i = 0
-n = 0
-x = 0
-namelist = []
-y = 0
+print("Chatroom is open.")
+userlist = {}
+name = 'Anonymous'
+userid = '0000'
+
 while True:
     (data, addr) = UDPSock.recvfrom(buf)
     data = str(data)
-
-    if data[2:7] == 'name:':
-        print("checking name..")
-
-        name = data[8:-1]
-        namelist.append(name)
-        print(namelist)
-
-        print(y)
+    logon = 0
 
 
-        #print("name is :" + name)
-        name = namelist[y] + ": "
-        nametest = 'yes'
-        namegame = 'yes'
-        #print("name test is: ",nametest)
-        #data = data[2:-1]
-        if nametest == 'yes':
-           # print(name + ":" + data[2:-1]) #delete me
-            n = 1
-            namegame = 'yes'
+    userid = data[2:6]
+    if data[6:11] == 'name:':
+        name = data[12:-1]
+        data = data[6:]
 
-        else:
-            print("Anonymous: " + data[2:-1])
-            n = 0
-            namegame = None
-        i = 0
+        userlist.update({userid:name})
+        logon = 1
+    if data[6:-1] == 'Error 404':
+        logon = 2
 
-    if n == 1 and namegame == 'yes':
-        print(name + data[2:-1])
+    if logon == 0:
+        try:
+            print(userlist[userid] + ":",data[6:-1])
+        except:
+            print(name + ":",data[6:-1])
 
-    elif n == 0 and namegame != 'yes':
-        print("Anonymous: " + data[2:-1])
-    y += 1
+    if logon == 1:
+        try:
+            print(userlist[userid],"has joined the chat")
+        except:
+            print(name,"has joined the chat")
 
+    if logon == 2:
+        try:
+            print(userlist[userid],"has left the chat")
+        except:
+            print(name,"has left the chat")
 
 UDPSock.close()
 os._exit(0)
