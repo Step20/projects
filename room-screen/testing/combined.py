@@ -29,7 +29,7 @@ while True:
 
     if i == 1:
 
-        #print("waiting for received message")
+        print("waiting for received message")
         (data, recaddr) = receive.recvfrom(buf)
 
         data = str(data)
