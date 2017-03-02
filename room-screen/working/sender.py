@@ -6,7 +6,7 @@ from socket import *
 import random, string
 
 
-host = "192.168.178.31" # set to IP address of target computer
+host = "192.168.178.34" # set to IP address of target computer
 port = 13001
 addr = (host, port)
 UDPSock = socket(AF_INET, SOCK_DGRAM)

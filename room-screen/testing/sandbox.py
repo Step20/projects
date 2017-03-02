@@ -1,17 +1,23 @@
-import string,random
-s = string.ascii_lowercase + string.digits
-userid = ''.join(random.sample(s,4))
-name = 'Jamiro'
-data = 'hey'
-data = userid + data
-dictionary = {userid:name}
-print(dictionary)
-print(dictionary[userid] + ':' + data[4:])
+from multiprocessing import Process
+from time import sleep
 
-userid = ''.join(random.sample(s,4))
-name = 'volmar'
-data = 'ho'
-data = userid + data
-dictionary.update({userid:name})
-print(dictionary)
-print(dictionary[userid] + ':' + data[4:])
+
+def one():
+    while True:
+        print("this is thread one")
+        sleep(2)
+
+def two():
+    while True:
+        print("this is thread two")
+        sleep(5)
+
+
+
+if __name__ == '__main__':
+  p1 = Process(target=one)
+  p1.start()
+  p2 = Process(target=two)
+  p2.start()
+  p1.join()
+  p2.join()
