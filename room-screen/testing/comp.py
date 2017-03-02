@@ -7,6 +7,9 @@ import random, string
 import threading
 
 
+s = string.ascii_lowercase + string.digits
+ownuserid = ''.join(random.sample(s,4))
+
 
 def receive():
 
@@ -34,6 +37,8 @@ def receive():
 
 
         userid = data[2:6]
+        if userid == ownuserid:
+            logon = 3
         if data[6:11] == 'name:':
             name = data[12:-1]
             data = data[6:]
@@ -60,6 +65,8 @@ def receive():
                 print(userlist[userid],"has left the chat")
             except:
                 print(name,"has left the chat")
+        if logon == 3:
+            pass
 
     receive.close()
 
@@ -75,11 +82,10 @@ BSock.setsockopt(SOL_SOCKET,SO_BROADCAST, 1)
 
 #UDPSock.sendto(bytes(name, "utf-8"), addr)
 #---creates id---#
-s = string.ascii_lowercase + string.digits
-userid = ''.join(random.sample(s,4))
-leavemsg = userid + "Error 404"
 
-name = userid + "name: " + name
+leavemsg = ownuserid + "Error 404"
+
+name = ownuserid + "name: " + name
 BSock.sendto(bytes(name, "utf-8"), addr)
 def sending():
 
@@ -87,7 +93,7 @@ def sending():
         try:
             data = input("type: ")
 
-            data = userid + data
+            data = ownuserid + data
 
             BSock.sendto(bytes(data, "utf-8"), addr)
         except KeyboardInterrupt:
