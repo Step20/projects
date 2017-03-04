@@ -7,7 +7,7 @@ import random, string
 
 
 host = "192.168.178.34"#, "192.168.178.30" # set to IP address of target computer
-port = 13000
+port = 13001
 addr = (host, port)
 UDPSock = socket(AF_INET, SOCK_DGRAM)
 name = input("what's your name? ")

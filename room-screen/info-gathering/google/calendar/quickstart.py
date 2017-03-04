@@ -32,11 +32,11 @@ def get_credentials():
     Returns:
         Credentials, the obtained credential.
     """
-    home_dir = os.path.expanduser('~')
+    home_dir = os.getcwd()
     credential_dir = os.path.join(home_dir, '.credentials')
     if not os.path.exists(credential_dir):
         os.makedirs(credential_dir)
-    infile = open('calendar-python-quickstart.json', 'w')
+    infile = open(os.path.join(credential_dir, 'calendar-python-quickstart.json'), 'w')
     infile.close
     credential_path = os.path.join(credential_dir,
                                    'calendar-python-quickstart.json')
