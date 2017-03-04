@@ -1,7 +1,8 @@
 
 #---it's a chat application! complete with names!
-#---to be used in the room-screem project, this program allows for 2 way text communication between 2 users.
-#---(more might be possible, testing needed)
+#---to be used in the room-screem project, this program allows for 2 way text communication between users.
+
+#-montarion-3/3/2017-it now does broadcasting, which has a limit of 32 users at a time.(per port i think, cant test.)
 from time import *
 from socket import *
 import random, string
